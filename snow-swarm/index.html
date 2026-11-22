@@ -1,4 +1,35 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Official legal notices for Snow Swarm Android game."><title>Snow Swarm · Legal</title><link rel="stylesheet" href="style.css"></head>
-<body><header><div class="headline"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">❄</span> Snow Swarm</a><nav aria-label="Navigation"><a href="privacy.html">Privacy / الخصوصية</a><a href="terms.html">Terms / الشروط</a></nav></div></header>
-<main class="paper"><h1>Snow Swarm · Legal information</h1><p lang="ar" dir="rtl">الصفحات الرسمية للشروط والخصوصية الخاصة بلعبة Snow Swarm للأندرويد.</p><p>Read our public legal pages in English or Arabic.</p><ul><li><a href="privacy.html">Privacy Policy — سياسة الخصوصية</a></li><li><a href="terms.html">Terms of Use — شروط الاستخدام</a></li></ul><p class="meta">Last updated: November 23, 2026.</p></main><footer>Snow Swarm</footer></body></html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Official Snow Swarm privacy and terms pages available in eleven languages.">
+<title>Snow Swarm · Legal</title><link rel="stylesheet" href="style.css"></head>
+<body><header><div class="headline"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">❄</span> Snow Swarm</a>
+<nav aria-label="Navigation"><a href="privacy.html">Privacy / الخصوصية</a><a href="terms.html">Terms / الشروط</a>
+<label class="language-picker" for="language-select"><span>Language / اللغة</span><select id="language-select" aria-label="Choose language / اختر اللغة"><option value="en">English</option>
+<option value="ar">العربية</option>
+<option value="es">Español</option>
+<option value="fr">Français</option>
+<option value="pt">Português</option>
+<option value="tr">Türkçe</option>
+<option value="id">Bahasa Indonesia</option>
+<option value="de">Deutsch</option>
+<option value="ja">日本語</option>
+<option value="it">Italiano</option>
+<option value="ru">Русский</option></select></label>
+</nav></div></header>
+<main class="paper"><h1 id="heading">Legal information</h1><p id="description">Read the game's Privacy Policy and Terms of Use.</p>
+<ul><li><a href="privacy.html">Privacy Policy — سياسة الخصوصية</a></li><li><a href="terms.html">Terms of Use — شروط الاستخدام</a></li></ul>
+<p class="meta">Last updated: November 23, 2026</p></main><footer>Snow Swarm</footer>
+<script>
+(function(){
+"use strict";
+const texts={"en":{"title":"Legal information","body":"Read the game's Privacy Policy and Terms of Use."},"ar":{"title":"المعلومات القانونية","body":"اقرأ سياسة الخصوصية وشروط الاستخدام الخاصة باللعبة."},"es":{"title":"Información legal","body":"Lee la Política de privacidad y los Términos de uso del juego."},"fr":{"title":"Informations légales","body":"Consultez la Politique de confidentialité et les Conditions d’utilisation du jeu."},"pt":{"title":"Informações legais","body":"Lê a Política de Privacidade e os Termos de Utilização do jogo."},"tr":{"title":"Yasal bilgiler","body":"Oyunun Gizlilik Politikası ve Kullanım Şartları'nı okuyun."},"id":{"title":"Informasi hukum","body":"Baca Kebijakan Privasi dan Ketentuan Penggunaan game."},"de":{"title":"Rechtliche Informationen","body":"Lies die Datenschutzerklärung und die Nutzungsbedingungen des Spiels."},"ja":{"title":"法的情報","body":"ゲームのプライバシーポリシーと利用規約をご確認ください。"},"it":{"title":"Informazioni legali","body":"Leggi l’Informativa sulla privacy e i Termini di utilizzo del gioco."},"ru":{"title":"Юридическая информация","body":"Прочтите Политику конфиденциальности и Условия использования игры."}};
+const select=document.getElementById("language-select");
+function base(raw){const code=String(raw||"").toLowerCase().split(/[-_]/)[0];return Object.hasOwn(texts,code)?code:null}
+const explicit=base(new URLSearchParams(location.search).get("lang"));
+const lang=explicit || (navigator.languages||[navigator.language]).map(base).find(Boolean) || "en";
+function apply(code){select.value=code;document.documentElement.lang=code;document.documentElement.dir=code==="ar"?"rtl":"ltr";document.getElementById("heading").textContent=texts[code].title;document.getElementById("description").textContent=texts[code].body;
+for(const a of document.querySelectorAll('a[href^="privacy.html"],a[href^="terms.html"]')){const url=new URL(a.getAttribute("href").split("?")[0],location.href);url.searchParams.set("lang",code);a.href=url.pathname+url.search;}}
+apply(lang);
+select.addEventListener("change",()=>{const next=select.value;const url=new URL(location.href);url.searchParams.set("lang",next);history.replaceState(null,"",url.pathname+url.search);apply(next)});
+})();
+</script></body></html>
