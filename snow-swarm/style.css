@@ -6,9 +6,12 @@ header { background:linear-gradient(120deg,#0e3a54 0%,#15759a 68%,#5bc0dc 100%);
 .brand { display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px; color:white; text-decoration:none; font-size:22px; }
 .mark { display:inline-flex; align-items:center; justify-content:center; width:43px; height:43px; background:#c3eef8; border-radius:13px; color:#0b516b; font-size:24px; }
 nav { display:flex; flex-wrap:wrap; gap:9px; align-items:center; }
-nav a,.lang-btn { border:1px solid rgba(255,255,255,.58); background:rgba(255,255,255,.10); color:white; border-radius:12px; font-weight:650; font-size:14px; text-decoration:none; padding:7px 13px; cursor:pointer; }
+nav a { border:1px solid rgba(255,255,255,.58); background:rgba(255,255,255,.10); color:white; border-radius:12px; font-weight:650; font-size:14px; text-decoration:none; padding:7px 13px; cursor:pointer; }
+.language-picker { display:flex;flex-wrap:wrap; align-items:center;gap:7px; color:#fff; font-size:13px; font-weight:650; }
+.language-picker select {font:inherit; padding:8px 30px 8px 9px; color:#123449; background:#fff; border:1px solid #c7e5f5; border-radius:10px; max-width:185px; cursor:pointer; min-height:40px; }
+.language-picker select option { color:#142e3f;background:#fff; }
 nav a[aria-current="page"] { background:#fff;color:#0d4a61; }
-nav a:hover,.lang-btn:hover { background:rgba(255,255,255,.24); }
+nav a:hover { background:rgba(255,255,255,.24); }
 nav a[aria-current="page"]:hover { background:white; }
 main { max-width:930px; margin:26px auto 56px; padding:0 18px; }
 .paper { background:white; border:1px solid var(--line); border-radius:20px; padding:clamp(22px,4vw,48px); box-shadow:0 12px 40px rgba(28,79,107,.07); }
@@ -24,4 +27,4 @@ footer { padding:0 20px 35px; max-width:930px; margin:0 auto; color:var(--muted)
 article[hidden] { display:none !important; }
 [dir="rtl"] { text-align:right; }
 :focus-visible { outline:3px solid #f6ad38; outline-offset:3px; }
-@media(max-width:540px) {header{padding:18px}main{margin-top:15px}.paper{border-radius:14px;padding:23px 19px}h2{font-size:19px}nav{gap:5px}nav a,.lang-btn{padding:6px 9px;font-size:13px}}
+@media(max-width:540px) {header{padding:18px}main{margin-top:15px}.paper{border-radius:14px;padding:23px 19px}h2{font-size:19px}nav{gap:5px}nav a{padding:6px 9px;font-size:13px}.language-picker select{max-width:165px;padding:7px 5px}}
