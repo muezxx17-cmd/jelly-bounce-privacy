@@ -15,7 +15,20 @@
 <nav aria-label="Legal navigation">
 <a href="privacy.html" aria-current="page">Privacy</a>
 <a href="terms.html">Terms</a>
-<button type="button" class="lang-btn" id="switch-lang" aria-label="Switch language">العربية</button>
+<label class="language-picker" for="language-select"><span>Language / اللغة</span>
+<select id="language-select" aria-label="Choose language / اختر اللغة">
+<option value="en">English</option>
+<option value="ar">العربية</option>
+<option value="es">Español</option>
+<option value="fr">Français</option>
+<option value="pt">Português</option>
+<option value="tr">Türkçe</option>
+<option value="id">Bahasa Indonesia</option>
+<option value="de">Deutsch</option>
+<option value="ja">日本語</option>
+<option value="it">Italiano</option>
+<option value="ru">Русский</option>
+</select></label>
 </nav></div></header>
 <main class="paper">
 <article id="english" lang="en">
@@ -279,11 +292,47 @@
 </main>
 <footer>Snow Swarm · <a href="terms.html">Terms of Use / شروط الاستخدام</a></footer>
 <script>
-(function () {
-  const en=document.getElementById("english"), ar=document.getElementById("arabic"), btn=document.getElementById("switch-lang");
-  function useArabic(on){ en.hidden=on;ar.hidden=!on;btn.textContent=on?"English":"العربية";document.documentElement.lang=on?"ar":"en"; }
-  useArabic((navigator.language||"").toLowerCase().startsWith("ar"));
-  btn.addEventListener("click",()=>useArabic(ar.hidden));
+(function() {
+  "use strict";
+  const options = ["en","ar","es","fr","pt","tr","id","de","ja","it","ru"];
+  const select = document.getElementById("language-select");
+  const articles = Array.from(document.querySelectorAll("article[lang]"));
+  const links = Array.from(document.querySelectorAll('a[href="privacy.html"],a[href="terms.html"]'));
+  function codeFor(raw) {
+    const base = String(raw || "").toLowerCase().replace(/_/g,"-").split("-")[0];
+    return options.includes(base) ? base : null;
+  }
+  function languageFromBrowser() {
+    for (const raw of navigator.languages || [navigator.language]) {
+      const found = codeFor(raw);
+      if (found) return found;
+    }
+    return "en";
+  }
+  function apply(code, rememberInUrl) {
+    const target = codeFor(code) || "en";
+    for (const article of articles) article.hidden = article.getAttribute("lang") !== target;
+    select.value = target;
+    document.documentElement.lang = target;
+    document.documentElement.dir = target === "ar" ? "rtl" : "ltr";
+    // Carry the chosen language to the other legal page without cookies,
+    // analytics, account identifiers or storage.
+    for (const a of links) {
+      const url = new URL(a.getAttribute("href").split("?")[0], location.href);
+      url.searchParams.set("lang", target);
+      a.href = url.pathname + url.search;
+    }
+    const heading = articles.find(a => a.getAttribute("lang") === target)?.querySelector("h1");
+    if (heading) document.title = heading.textContent + " | Snow Swarm";
+    if (rememberInUrl) {
+      const url = new URL(location.href);
+      url.searchParams.set("lang", target);
+      history.replaceState(null, "", url.pathname + url.search + url.hash);
+    }
+  }
+  const explicit = codeFor(new URLSearchParams(location.search).get("lang"));
+  apply(explicit || languageFromBrowser(), false);
+  select.addEventListener("change", () => apply(select.value, true));
 })();
 </script>
 </body>
